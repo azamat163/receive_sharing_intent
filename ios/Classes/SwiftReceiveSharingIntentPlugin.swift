@@ -88,10 +88,7 @@ public class SwiftReceiveSharingIntentPlugin: NSObject, FlutterPlugin, FlutterSt
     // If the URL does not include the module's prefix, then we return false to indicate our module's attempt to open the resource failed and others should be allowed to.
     // Reference: https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1623112-application
     public func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        if (hasMatchingSchemePrefix(url: url)) {
-            return handleUrl(url: url, setInitialData: false)
-        }
-        return false
+        handleUrl(url: url, setInitialData: false)
     }
     
     // This function is called by other modules like Firebase DeepLinks.
@@ -248,7 +245,7 @@ public enum SharedMediaType: String, Codable, CaseIterable {
     //         case .audio:
     //             return UTType.audio.identifier
             case .file:
-                return UTType.fileURL.identifier
+                return UTType.pdf.identifier
             case .url:
                 return UTType.url.identifier
             }
@@ -263,7 +260,7 @@ public enum SharedMediaType: String, Codable, CaseIterable {
 //         case .audio:
 //             return "public.audio"
         case .file:
-            return "public.file-url"
+            return "com.adobe.pdf"
         case .url:
             return "public.url"
         }
